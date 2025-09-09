@@ -80,11 +80,17 @@ def parse_period_days(period_str, default_days=7):
 
 # ---------------- Binance Provider ----------------
 class BinanceProvider:
-    def __init__(self, symbol='BTCUSDT', base_url='https://api.binance.com'):
+    def __init__(self, symbol='BTCUSDT', base_url='https://api.binance.us'):
         self.symbol = symbol
         self.base_url = base_url
         self.session = requests.Session()
-        self.session.headers.update({"User-Agent": "Mozilla/5.0 (TradingBot)"})
+        self.session.headers.update({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
+            "Accept": "application/json, text/plain, */*",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Referer": "https://www.binance.us/",
+            "Origin": "https://www.binance.us"
+        })
 
     def _fetch_klines(self, interval='1m', start_ms=None, end_ms=None, limit=1000):
         url = f"{self.base_url}/api/v3/klines"
